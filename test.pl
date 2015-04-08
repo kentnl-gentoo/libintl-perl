@@ -3,23 +3,21 @@
 # vim: tabstop=4
 
 # Portable character conversion for Perl.
-# Copyright (C) 2002-2013 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2015 Guido Flohr <guido.flohr@cantanea.com>,
 # all rights reserved.
 
-# This program is free software; you can redistribute it and/or modify it
-# under the terms of the GNU Library General Public License as published
-# by the Free Software Foundation; either version 2, or (at your option)
-# any later version.
-                                                                                
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Library General Public License for more details.
-                                                                                
-# You should have received a copy of the GNU Library General Public 
-# License along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, 
-# USA.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # This is a safe wrapper for systems that lack a POSIX shell or have
 # a too low limit on the length of the command line.
@@ -61,7 +59,21 @@ sub test_harness
 	open HANDLE, "<$name" or die "cannot open '$name': $!";
 	my $xs_disabled = <HANDLE>;
 	close HANDLE;
-	unless ($xs_disabled) {
+
+        eval {
+                require POSIX;
+                POSIX::setlocale(POSIX::LC_ALL());
+        };
+        my $has_locales = !$@;
+        if (!$has_locales) {
+                $xs_disabled = 1;
+                print <<EOF;
+The translation features of libintl-perl cannot be tested on your system
+because it lacks locale support.
+EOF
+        }
+
+	if (!$xs_disabled && $has_locales) {
 		# It is pointless to test the XS extension, if no German
 		# locales are installed on the system.  The results
 		# vary in almost arbitrary ways.
@@ -102,7 +114,7 @@ EOF
 	}
 
 	if ($xs_disabled) {
-		Test::Harness::runtests (grep { ! /03[a-z_]+_(?:pp|xs)\.t$/ } sort 
+		Test::Harness::runtests (grep { ! /0[34][a-z_]+_(?:pp|xs)\.t$/ } sort 
 			{lc $a cmp lc $b } @ARGV);
 	} else {
 		Test::Harness::runtests (sort {lc $a cmp lc $b } @ARGV);

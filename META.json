@@ -1,10 +1,10 @@
 {
    "abstract" : "High-Level Interface to Uniforum Message Translation",
    "author" : [
-      "Guido Flohr <guido@imperia.net>"
+      "Guido Flohr <guido.flohr@cantanea.com>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.112621",
+   "generated_by" : "ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.142690",
    "license" : [
       "unknown"
    ],
@@ -22,20 +22,20 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : 0
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : 0
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "runtime" : {
          "recommends" : {
-            "File::ShareDir" : 0
+            "File::ShareDir" : "0"
          },
          "requires" : {
-            "File::Spec" : 0,
+            "File::Spec" : "0",
             "version" : "0.77"
          }
       }
@@ -50,5 +50,5 @@
          "url" : "git://git.guido-flohr.net/perl/libintl-perl.git"
       }
    },
-   "version" : "1.23"
+   "version" : "1.24"
 }

@@ -3,23 +3,21 @@
 # vim: set autoindent shiftwidth=4 tabstop=4:
 
 # High-level interface to Perl i18n.
-# Copyright (C) 2002-2013 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2015 Guido Flohr <guido.flohr@cantanea.com>,
 # all rights reserved.
 
-# This program is free software; you can redistribute it and/or modify it
-# under the terms of the GNU Library General Public License as published
-# by the Free Software Foundation; either version 2, or (at your option)
-# any later version.
-                                                                                
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Library General Public License for more details.
-                                                                                
-# You should have received a copy of the GNU Library General Public 
-# License along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, 
-# USA.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package __TiedTextDomain;
 
@@ -68,7 +66,7 @@ use Cwd qw (abs_path);
 
 use vars qw ($VERSION);
 
-$VERSION = '1.23';
+$VERSION = '1.24';
 
 require Exporter;
 
@@ -691,10 +689,9 @@ if she has to reorder the color and the thing like in French:
     msgid "This is the red car.\n";
     msgstr "Cela est la voiture rouge.\n"
 
-Zut alors! No way! You cannot portably reorder the arguments to 
-printf() and friends in Perl (it is possible in C, but at the 
-time of this writing not supported in Perl, and it would lead to
-other problems anyway).
+Zut alors! While it is possible to reorder the arguments to printf()
+and friends, it requires a syntax that is is nothing that you want to 
+learn.
 
 So what? The Perl backend to GNU gettext has defined an alternative
 format for interpolatable strings:
@@ -843,11 +840,11 @@ into the string to the previous method, __np().
 
 It's usage would be like so:
 
-    print __nx ("Files being permenantly removed",
-                "One file has been deleted.\n",
-                "{count} files have been deleted.\n",
-                $num_files,
-                count => $num_files);
+    print __npx ("Files being permenantly removed",
+                 "One file has been deleted.\n",
+                 "{count} files have been deleted.\n",
+                 $num_files,
+                 count => $num_files);
 
 I cannot think of any situations requiring this, but we can easily 
 support it, so here it is.
@@ -1043,11 +1040,8 @@ overhead for the function calls.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2013, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2015, Guido Flohr E<lt>guido.flohr@cantanea.comE<gt>, all
 rights reserved.  See the source code for details.
-
-This software is contributed to the Perl community by Imperia 
-(L<http://www.imperia.net/>).
 
 =head1 SEE ALSO
 
